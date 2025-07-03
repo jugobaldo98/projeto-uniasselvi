@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja Virtual</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+    <h1>Jugo Store</h1>
+  </div>
+  
+    <div id="cart">
+  🛒 Carrinho: <span id="cart-count">0</span> itens - R$<span id="cart-total">0.00</span>
+  <div id="cart-items" style="display:none; background:#fff; color:#000; position:absolute; right:0; top:40px; width:300px; max-height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px; border-radius:6px;">
+    <button id="finalizar-compra" style="margin-top: 10px; padding: 6px 12px; cursor: pointer;">Finalizar Compra</button>
+
+    <!-- Itens do carrinho vão aparecer aqui -->
+    <p>Carrinho vazio.</p>
+      </div>
+    </div>
+  </header>
+
+  <div id="filtros" style="padding: 1rem; max-width: 1200px; margin: 0 auto;">
+  <label for="categoria">Categoria:</label>
+  <select id="categoria">
+    <option value="tudo">Todas</option>
+    <option value="camiseta">Camiseta</option>
+    <option value="calca">Calça</option>
+    <option value="tenis">Tênis</option>
+    <option value="jaqueta">Jaqueta</option>
+    <option value="acessorio">Acessório</option>
+  </select>
+
+  <label for="preco">Preço máximo:</label>
+  <input type="number" id="preco" placeholder="ex: 100">
+  
+  <button onclick="filtrarProdutos()">Filtrar</button>
+</div>
+
+
+
+  <main id="product-list">
+    <!-- Produtos serão inseridos aqui pelo JS -->
+
+    
+  </main>
+
+  <script src="script.js"></script>
+
+  <script>
+  function filtrarProdutos() {
+    const categoriaSelecionada = document.getElementById("categoria").value;
+    const precoMax = parseFloat(document.getElementById("preco").value);
+
+    const produtos = document.querySelectorAll(".product");
+
+    produtos.forEach(produto => {
+      const categoria = produto.dataset.categoria;
+      const preco = parseFloat(produto.dataset.preco);
+
+      let mostrar = true;
+
+      if (categoriaSelecionada !== "tudo" && categoria !== categoriaSelecionada) {
+        mostrar = false;
+      }
+
+      if (!isNaN(precoMax) && preco > precoMax) {
+        mostrar = false;
+      }
+
+      produto.style.display = mostrar ? "flex" : "none";
+    });
+  }
+</script>
+</body>
+</html>

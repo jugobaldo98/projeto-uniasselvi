@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finalizar Compra - Jugo Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background: #eee;
+    }
+    .total {
+      text-align: right;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    form button {
+      margin-top: 2rem;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+    }
+    form button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Finalizar Compra</h1>
+  <div id="resumo-carrinho">
+    <!-- Itens do carrinho aqui -->
+  </div>
+
+  <form id="form-checkout">
+    <label for="nome">Nome completo:</label>
+    <input type="text" id="nome" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required />
+
+    <label for="endereco">Endereço:</label>
+    <textarea id="endereco" rows="3" required></textarea>
+
+    <button type="submit">Confirmar Compra</button>
+  </form>
+
+  <script>
+    // Pega o carrinho do localStorage
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    const resumoDiv = document.getElementById('resumo-carrinho');
+
+    if (carrinho.length === 0) {
+      resumoDiv.innerHTML = '<p>Carrinho vazio.</p>';
+    } else {
+      let total = 0;
+      let html = '<table><thead><tr><th>Produto</th><th>Qtd</th><th>Preço</th></tr></thead><tbody>';
+      carrinho.forEach(item => {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+        html += `<tr>
+          <td>${item.nome}</td>
+          <td>${item.quantidade}</td>
+          <td>R$ ${subtotal.toFixed(2)}</td>
+        </tr>`;
+      });
+      html += `</tbody></table><div class="total">Total: R$ ${total.toFixed(2)}</div>`;
+      resumoDiv.innerHTML = html;
+    }
+
+    // Captura submit do form
+    document.getElementById('form-checkout').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const endereco = document.getElementById('endereco').value.trim();
+
+      if (!nome || !email || !endereco) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+      }
+
+      // Aqui você pode enviar os dados pra um backend, ou só simular o sucesso:
+      alert(`Obrigado pela compra, ${nome}! Um email de confirmação foi enviado para ${email}.`);
+
+      // Limpar localStorage e redirecionar para a loja
+      localStorage.removeItem('carrinho');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
