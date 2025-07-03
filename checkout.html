@@ -84,7 +84,7 @@
   </form>
 
   <script>
-    // Pega o carrinho do localStorage
+    
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
     const resumoDiv = document.getElementById('resumo-carrinho');
@@ -107,7 +107,7 @@
       resumoDiv.innerHTML = html;
     }
 
-    // Captura submit do form
+    
     document.getElementById('form-checkout').addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -120,10 +120,10 @@
         return;
       }
 
-      // Aqui você pode enviar os dados pra um backend, ou só simular o sucesso:
+      
       alert(`Obrigado pela compra, ${nome}! Um email de confirmação foi enviado para ${email}.`);
 
-      // Limpar localStorage e redirecionar para a loja
+      
       localStorage.removeItem('carrinho');
       window.location.href = 'index.html';
     });

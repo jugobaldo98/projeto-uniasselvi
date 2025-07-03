@@ -116,7 +116,7 @@ function atualizarCarrinho() {
       cartItems.appendChild(itemDiv);
     });
 
-    // Adiciona o botão Finalizar Compra no final da lista
+    
     const btnFinalizar = document.createElement('button');
     btnFinalizar.textContent = 'Finalizar Compra';
     btnFinalizar.style.marginTop = '10px';
@@ -152,7 +152,7 @@ function removerDoCarrinho(index) {
   atualizarCarrinho();
 }
 
-// Renderiza os produtos na página
+
 function renderizarProdutos() {
   const lista = document.getElementById("product-list");
   lista.innerHTML = "";
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Agora sim: só registra o clique UMA vez
+  
   document.getElementById('finalizar-compra').addEventListener('click', () => {
     window.location.href = 'checkout.html';
   });
